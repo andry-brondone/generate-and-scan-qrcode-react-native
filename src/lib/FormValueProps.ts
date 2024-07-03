@@ -7,4 +7,5 @@ export interface FormValueProps {
   parcours: string;
   photo?: string;
   statut?: string;
+  qrCodeId?: string;
 }

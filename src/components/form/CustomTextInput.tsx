@@ -48,7 +48,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
         onBlur={onBlur}
         value={value}
         className={clsx(
-          "border text-base p-3 rounded-lg border-gray-600 text-gray-800",
+          "border text-base p-3 rounded-lg border-gray-600/60 bg-white text-gray-800",
           touched && error && "border-alert-danger/50"
         )}
       />

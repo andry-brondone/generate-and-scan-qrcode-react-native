@@ -11,7 +11,7 @@ import { FormValueProps } from "../lib/FormValueProps";
 import { url } from "../utils/url";
 import { validationSchemaParticipant } from "../utils/ValidationSchemasYup";
 
-export default function RegisterParticipantScreen({ navigation }: any) {
+export default function RegisterParticipantScreen() {
   const cameraRef = useRef<{ resetImage: () => void }>(null);
   const { dataUser } = useContext(DataUserContext);
 
@@ -72,14 +72,8 @@ export default function RegisterParticipantScreen({ navigation }: any) {
 
   return (
     <>
-      <View className="flex flex-row items-center justify-between bg-gray-500/60 border-b-2 shadow-sm border-gray-500 p-4">
+      <View className="flex flex-row items-center justify-between bg-gray-500/40 border-b-2 shadow-sm border-gray-500 p-4">
         <Text className="text-2xl text-center">Ajouter un participant</Text>
-        <ButtonCustom
-          variant="secondary"
-          onPress={() => navigation.navigate("Landing")}
-          title="Retour"
-          className="py-1 px-5 text-sm"
-        />
       </View>
       <ScrollView>
         <Container className="pt-4">

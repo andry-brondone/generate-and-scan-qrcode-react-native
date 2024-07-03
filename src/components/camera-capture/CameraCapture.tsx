@@ -54,7 +54,11 @@ const CameraCapture = forwardRef<{}, CameraCaptureProps>(
           onPress={handleTakePhoto}
         />
         {photo && (
-          <Image source={{ uri: photo }} className="my-5 w-full h-80" />
+          <Image
+            source={{ uri: photo }}
+            className="my-5 w-full h-52"
+            resizeMode="contain"
+          />
         )}
         {touched && error && (
           <Text className="text-alert-danger/90">{error}</Text>

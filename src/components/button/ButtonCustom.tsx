@@ -17,18 +17,17 @@ function ButtonCustom({
 
   switch (variant) {
     case "accent": // default
-      variantStyle =
-        "bg-primary p-3 text-center rounded text-lg text-white shadow-sm";
+      variantStyle = "bg-primary p-3 text-center rounded text-lg text-white ";
       break;
 
     case "secondary":
       variantStyle =
-        "text-primary border border-primary p-3 text-center rounded text-lg";
+        "text-primary border border-primary p-3 text-center rounded text-lg ";
       break;
 
     case "outline":
       variantStyle =
-        "bg-white p-3 text-center text-lg border border-gray-600 text-gray-900 rounded";
+        "bg-white p-3 text-center text-lg border border-gray-600/60 text-gray-800/80 rounded";
       break;
 
     case "disabled":

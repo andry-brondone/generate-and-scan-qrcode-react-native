@@ -49,7 +49,9 @@ export default function LoginScreen() {
   return (
     <AnimatedHeaderSroll>
       <Container>
-        <Text className="text-3xl text-center pb-12">Connexion</Text>
+        <Text className="text-4xl text-center mb-10 font-bold text-gray-600">
+          Connexion
+        </Text>
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
@@ -88,11 +90,11 @@ export default function LoginScreen() {
                 touched={!!touched.mdp}
               />
 
-              <View className="flex items-center justify-center">
+              <View>
                 <ButtonCustom
                   title="Se connecter"
                   onPress={() => handleSubmit()}
-                  className="mt-5 w-[150px]"
+                  className="mt-7"
                 />
               </View>
             </View>
