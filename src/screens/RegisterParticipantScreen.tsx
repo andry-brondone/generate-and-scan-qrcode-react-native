@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Formik, FormikHelpers } from "formik";
 import React, { useContext, useRef } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { View } from "react-native";
+import Toast from "react-native-toast-message";
 import ButtonCustom from "../components/button/ButtonCustom";
 import CameraCapture from "../components/camera-capture/CameraCapture";
 import Container from "../components/container/Container";
@@ -16,6 +17,7 @@ export default function RegisterParticipantScreen() {
   const { dataUser } = useContext(DataUserContext);
 
   const initialValues: FormValueProps = {
+    matricule: "99999",
     nom: "",
     prenom: "",
     email: "",
@@ -29,6 +31,7 @@ export default function RegisterParticipantScreen() {
     actions: FormikHelpers<FormValueProps>
   ) => {
     const formData = new FormData();
+    formData.append("matricule", data.matricule);
     formData.append("nom", data.nom);
     formData.append("prenom", data.prenom);
     formData.append("email", data.email);
@@ -55,15 +58,27 @@ export default function RegisterParticipantScreen() {
       );
 
       if (res.data.Status === "Success") {
-        console.log("ok");
         actions.resetForm();
         if (cameraRef.current) {
           cameraRef.current.resetImage();
         }
+        Toast.show({
+          type: "success",
+          text1: "Succès",
+          text2: "L'étudiant à bien été inscrit",
+        });
       } else if (res.data.Status === "erreurConnexionBD") {
-        console.log("Verifier votre connexion internet");
+        Toast.show({
+          type: "info",
+          text1: "Attention",
+          text2: "Verifier votre connexion internet !",
+        });
       } else if (res.data.Status === "duplication") {
-        console.log("Cette adresse e-mail existe déjà");
+        Toast.show({
+          type: "error",
+          text1: "Erreur lors de l'enregistrement",
+          text2: "L'adresse e-mail ou le matricule existe déjà",
+        });
       }
     } catch (error) {
       console.error("Error : ", error);
@@ -72,95 +87,106 @@ export default function RegisterParticipantScreen() {
 
   return (
     <>
-      <View className="flex flex-row items-center justify-between bg-gray-500/40 border-b-2 shadow-sm border-gray-500 p-4">
-        <Text className="text-2xl text-center">Ajouter un participant</Text>
-      </View>
-      <ScrollView>
-        <Container className="pt-4">
-          <Formik
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            validationSchema={validationSchemaParticipant}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-              setFieldValue,
-            }) => (
-              <View>
-                <CustomTextInput
-                  label="Nom"
-                  placeholder="ex. ANDRIAMBOLOLOMANANA"
-                  onChangeText={handleChange("nom")}
-                  onBlur={handleBlur("nom")}
-                  value={values.nom}
-                  error={touched.nom && errors.nom}
-                  touched={!!touched.nom}
-                />
+      {/* <ScrollView> */}
+      {/* <View className="flex flex-row items-center justify-between bg-gray-500/40 border-b-2 shadow-sm border-gray-500 p-4">
+          <Text className="text-2xl text-center">Ajouter un participant</Text>
+        </View> */}
+      <Container className="pt-4 mt-10">
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchemaParticipant}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            setFieldValue,
+          }) => (
+            <View>
+              <CustomTextInput
+                hidden
+                label="Matricule"
+                placeholder=""
+                onChangeText={handleChange("matricule")}
+                onBlur={handleBlur("matricule")}
+                value={values.matricule}
+                error={touched.matricule && errors.matricule}
+                touched={!!touched.matricule}
+              />
 
-                <CustomTextInput
-                  label="Prénom"
-                  placeholder="ex. Brondone"
-                  onChangeText={handleChange("prenom")}
-                  onBlur={handleBlur("prenom")}
-                  value={values.prenom}
-                  error={touched.prenom && errors.prenom}
-                  touched={!!touched.prenom}
-                />
+              <CustomTextInput
+                label="Nom"
+                placeholder=""
+                onChangeText={handleChange("nom")}
+                onBlur={handleBlur("nom")}
+                value={values.nom}
+                error={touched.nom && errors.nom}
+                touched={!!touched.nom}
+              />
 
-                <CustomTextInput
-                  label="Email"
-                  placeholder="ex. andry.brondone@gmail.com"
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                  error={touched.email && errors.email}
-                  touched={!!touched.email}
-                />
+              <CustomTextInput
+                label="Prénom"
+                placeholder=""
+                onChangeText={handleChange("prenom")}
+                onBlur={handleBlur("prenom")}
+                value={values.prenom}
+                error={touched.prenom && errors.prenom}
+                touched={!!touched.prenom}
+              />
 
-                <CustomTextInput
-                  label="Niveau"
-                  placeholder="ex. andry.brondone@gmail.com"
-                  onChangeText={handleChange("niveau")}
-                  onBlur={handleBlur("niveau")}
-                  value={values.niveau}
-                  error={touched.niveau && errors.niveau}
-                  touched={!!touched.niveau}
-                  hidden
-                />
+              <CustomTextInput
+                label="Email"
+                placeholder=""
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                error={touched.email && errors.email}
+                touched={!!touched.email}
+              />
 
-                <CustomTextInput
-                  label="Parcours"
-                  placeholder="ex. andry.brondone@gmail.com"
-                  onChangeText={handleChange("parcours")}
-                  onBlur={handleBlur("parcours")}
-                  value={values.parcours}
-                  error={touched.parcours && errors.parcours}
-                  touched={!!touched.parcours}
-                  hidden
-                />
+              <CustomTextInput
+                label="Niveau"
+                placeholder=""
+                onChangeText={handleChange("niveau")}
+                onBlur={handleBlur("niveau")}
+                value={values.niveau}
+                error={touched.niveau && errors.niveau}
+                touched={!!touched.niveau}
+                hidden
+              />
 
-                <CameraCapture
-                  ref={cameraRef}
-                  setFieldValue={setFieldValue}
-                  error={touched.photo && errors.photo}
-                  touched={!!touched.photo}
-                />
+              <CustomTextInput
+                label="Parcours"
+                placeholder=""
+                onChangeText={handleChange("parcours")}
+                onBlur={handleBlur("parcours")}
+                value={values.parcours}
+                error={touched.parcours && errors.parcours}
+                touched={!!touched.parcours}
+                hidden
+              />
 
-                <ButtonCustom
-                  className="mt-6"
-                  title="Enregistrer"
-                  onPress={() => handleSubmit()}
-                />
-              </View>
-            )}
-          </Formik>
-        </Container>
-      </ScrollView>
+              <CameraCapture
+                ref={cameraRef}
+                setFieldValue={setFieldValue}
+                error={touched.photo && errors.photo}
+                touched={!!touched.photo}
+              />
+
+              <ButtonCustom
+                className="mt-6"
+                title="Enregistrer"
+                onPress={() => handleSubmit()}
+              />
+            </View>
+          )}
+        </Formik>
+      </Container>
+      {/* </ScrollView> */}
     </>
   );
 }

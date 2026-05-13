@@ -4,6 +4,10 @@ const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
 export const validationSchemaStaff = Yup.object().shape({
+  matricule: Yup.string()
+    .min(4, "Le matricule doit contenir au moins 4 caractères")
+    .max(8, "Le matricule doit contenir 8 caractères maximum")
+    .required("Ce champ est obligatoire"),
   nom: Yup.string()
     .min(3, "Un nom doit contenir au moins 3 caractères")
     .required("Ce champ est obligatoire"),

@@ -11,9 +11,6 @@ import { url } from "../utils/url";
 import { DataUserContext } from "./DataUserContext";
 import { LoadingContext } from "./LoadingContext";
 
-interface Props {
-  children: React.ReactNode;
-}
 interface AuthContextProps {
   token: string | null;
   setToken: (token: string | null) => void;

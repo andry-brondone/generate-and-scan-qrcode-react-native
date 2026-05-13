@@ -28,7 +28,7 @@ const CustomPicker: React.FC<CustomTextInputProps> = ({
       </Text>
       <View
         className={clsx(
-          "border border-gray-600 text-gray-800 rounded",
+          "border border-gray-600/50 text-gray-800 rounded bg-white",
           touched && error && "border-alert-danger/50"
         )}
       >

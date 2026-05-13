@@ -1,9 +1,9 @@
-// App.tsx
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useContext, useEffect } from "react";
 import { StatusBar } from "react-native";
+import Toast from "react-native-toast-message";
 import Icon from "react-native-vector-icons/Ionicons";
 import "./global.css";
 import Loading from "./src/components/loading/Loading";
@@ -37,6 +37,7 @@ export default function App() {
       <DataUserProvider>
         <AuthProvider>
           <RootNavigator />
+          <Toast />
         </AuthProvider>
       </DataUserProvider>
     </LoadingProvider>

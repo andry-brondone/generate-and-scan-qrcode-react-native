@@ -1,4 +1,5 @@
-export const url = "http://192.168.11.14:3001";
+//export const url = "http://192.168.11.14:3001";
+export const url = "http://192.168.192.206:3001";
 
 // images
 export const iconApp = require("../../assets/icon-app.png");

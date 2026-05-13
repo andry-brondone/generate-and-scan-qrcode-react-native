@@ -1,4 +1,5 @@
 export interface FormValueProps {
+  matricule: string;
   nom: string;
   prenom: string;
   email: string;

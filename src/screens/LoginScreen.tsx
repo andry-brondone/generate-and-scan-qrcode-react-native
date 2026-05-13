@@ -2,8 +2,8 @@ import axios from "axios";
 import { Formik } from "formik";
 import { useContext } from "react";
 import { Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import * as Yup from "yup";
-import { AnimatedHeaderSroll } from "../components/animated-header-scroll/AnimatedHeaderSroll";
 import ButtonCustom from "../components/button/ButtonCustom";
 import Container from "../components/container/Container";
 import CustomTextInput from "../components/form/CustomTextInput";
@@ -33,21 +33,40 @@ export default function LoginScreen() {
       .post(`${url}/personne/login`, data)
       .then((res) => {
         if (res.data.error) {
-          console.log(res.data.error);
+          Toast.show({
+            type: "error",
+            text1: "Erreur de connexion",
+            text2: res.data.error,
+          });
         } else {
           setToken(res.data.token);
-          console.log("connecter");
+          Toast.show({
+            type: "success",
+            text1: "Succès",
+            text2: "Vous êtes connecté !",
+          });
         }
       })
       .catch((err) => {
         if (err.message === "Network Error") {
-          console.log("Verifier votre connexion internet");
+          Toast.show({
+            type: "error",
+            text1: "Erreur réseau",
+            text2: "Vérifiez votre connexion internet",
+          });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Erreur",
+            text2: err.message,
+          });
         }
       });
   };
 
   return (
-    <AnimatedHeaderSroll>
+    <>
+      {/* <AnimatedHeaderSroll> */}
       <Container>
         <Text className="text-4xl text-center mb-10 font-bold text-gray-600">
           Connexion
@@ -68,7 +87,7 @@ export default function LoginScreen() {
             <View>
               <CustomTextInput
                 label="Email"
-                placeholder="ex. andry.brondone@gmail.com"
+                placeholder=""
                 keyboardType="email-address"
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
@@ -79,7 +98,7 @@ export default function LoginScreen() {
 
               <CustomTextInput
                 label="Mot de passe"
-                placeholder="ex. 123456"
+                placeholder=""
                 onChangeText={handleChange("mdp")}
                 onBlur={handleBlur("mdp")}
                 value={values.mdp}
@@ -101,6 +120,7 @@ export default function LoginScreen() {
           )}
         </Formik>
       </Container>
-    </AnimatedHeaderSroll>
+      {/* <AnimatedHeaderSroll> */}
+    </>
   );
 }

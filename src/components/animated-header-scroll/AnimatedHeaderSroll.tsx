@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { Animated, ScrollView } from "react-native";
+import { Animated } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 import { HeaderLogo } from "../header/HeaderLogo";
 
 interface Props {

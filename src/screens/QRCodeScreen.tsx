@@ -8,7 +8,7 @@ import Container from "../components/container/Container";
 import { FormValueProps } from "../lib/FormValueProps";
 import { url } from "../utils/url";
 
-const QRCodeScanner = ({ navigation }: any) => {
+const QRCodeScanner = () => {
   const [participantData, setParticipantData] = useState<FormValueProps | null>(
     null
   );
@@ -120,7 +120,7 @@ const QRCodeScanner = ({ navigation }: any) => {
             <ButtonCustom
               title="Scanner à nouveau"
               onPress={() => {
-                handleDeletePhoto(participantData.qrCodeId);
+                //handleDeletePhoto(participantData.qrCodeId);
                 setParticipantData(null);
                 setScanned(false);
               }}
@@ -156,11 +156,6 @@ const QRCodeScanner = ({ navigation }: any) => {
                 setErrorMsg(null);
                 setScanned(false);
               }}
-            />
-            <ButtonCustom
-              variant="secondary"
-              title="Retour"
-              onPress={() => navigation.navigate("Landing")}
             />
           </Container>
         </ScrollView>

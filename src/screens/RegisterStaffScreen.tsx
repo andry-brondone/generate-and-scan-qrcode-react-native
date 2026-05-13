@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Formik, FormikHelpers } from "formik";
 import { ScrollView, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import ButtonCustom from "../components/button/ButtonCustom";
 import Container from "../components/container/Container";
 import CustomPicker from "../components/form/CustomPicker";
@@ -15,6 +16,7 @@ import { validationSchemaStaff } from "../utils/ValidationSchemasYup";
 import { url } from "../utils/url";
 
 const initialValues: FormValueProps = {
+  matricule: "",
   nom: "",
   prenom: "",
   email: "",
@@ -33,14 +35,24 @@ const onSubmit = (
     .post(`${url}/personne/add-staff`, data)
     .then((res) => {
       if (res.data.Status === "Success") {
-        console.log("ok");
-
-        // Pour effacer les champs dans le formulaire
         actions.resetForm();
+        Toast.show({
+          type: "success",
+          text1: "Succès",
+          text2: "Le staff à bien été enregistrer",
+        });
       } else if (res.data.Status === "erreurConnexionBD") {
-        console.log("Verifier votre connexion internet");
+        Toast.show({
+          type: "info",
+          text1: "Attention",
+          text2: "Verifier votre connexion internet !",
+        });
       } else if (res.data.Status === "duplication") {
-        console.log("Cette adresse e-mail existe déjà");
+        Toast.show({
+          type: "error",
+          text1: "Erreur lors de l'enregistrement",
+          text2: "L'adresse e-mail ou le matricule existe déjà",
+        });
       }
     })
     .catch((error) => {
@@ -71,6 +83,16 @@ export default function RegisterStaffScreen() {
               setFieldValue,
             }) => (
               <View>
+                <CustomTextInput
+                  label="Matricule"
+                  placeholder="ex. 1332H-F"
+                  onChangeText={handleChange("matricule")}
+                  onBlur={handleBlur("matricule")}
+                  value={values.matricule}
+                  error={touched.matricule && errors.matricule}
+                  touched={!!touched.matricule}
+                />
+
                 <CustomTextInput
                   label="Nom"
                   placeholder="ex. ANDRIAMBOLOLOMANANA"
